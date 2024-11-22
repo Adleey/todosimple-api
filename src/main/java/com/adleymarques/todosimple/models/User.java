@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -29,10 +30,11 @@ public class User {
     public interface UpdateUser {}
 
     public static final String TABLE_NAME = "user";
+    
 
     @Id //Definir chave primaria da entidade
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Serve para definir que a chave é auto-increment
-    @Column(name= "id", unique = true) // Serve para configurar comos os atributos de uma entidade são mapeados no banco de dados
+    @Column(name= "id", unique = true) // Serve para configurar como os atributos de uma entidade são mapeados no banco de dados
     private Long id;
 
     // Obs: A anotações servem para gerar o banco de dados
@@ -50,7 +52,9 @@ public class User {
     @Size(groups = {CreateUser.class, UpdateUser.class}, min = 8, max = 60)
     private String password;
 
-    //private List<Task> tasks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user") // Significa que um usuário pode ter varias tasks
+    private List<Task> tasks = new ArrayList<>();
 
 
     public User() {
@@ -86,6 +90,16 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+    public List<Task> getTasks() {
+        return this.tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
 
     @Override
     public boolean equals(Object obj) {
