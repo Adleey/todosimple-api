@@ -10,6 +10,8 @@ import com.adleymarques.todosimple.models.Task;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long>{
 
+    //O repository serve para persistir dados ou buscar dados com o model no banco de dados
+
     /*O Repository é uma abstração que facilita a interação com o banco de dados. Ela organiza e gerencia o acesso aos dados, de maneira eficiente e consistente.
      * O JpaRepository disponibiliza varias funções de interação com o banco de dados, evitando que precisemos criar as funções na mão.
      */
